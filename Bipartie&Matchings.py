@@ -1,0 +1,2 @@
+def power(list):
+    
