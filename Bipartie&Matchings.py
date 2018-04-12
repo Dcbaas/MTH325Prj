@@ -44,14 +44,32 @@ def partite_sets(graph):
     return output_set
 
 
-output1 = power(["A"])
-print(output1)
+def is_bipartite(graph):
+    partite_set = partite_sets(graph)
+    for key in graph:
+        if contains(partite_set[0], key) and contains(partite_set[1], key):
+            return False
+    return True
+
+
+def is_perfect(graph):
+    partite_set = partite_sets(graph)
+    print(partite_set)
+    # Do both partite sets have an equal number of vertices
+    if len(partite_set[0]) != len(partite_set[1]):
+        return False
+
+    return True
+
 
 graph1 = {"A": ["B", "C"], "B": ["A"], "C": ["A"]}
 graph2 = {"A": ["B", "C"], "B": ["A", "D"], "C": ["A", "D"], "D": ["B", "C"]}
 
-out = partite_sets(graph1)
-out2 = partite_sets(graph2)
+# boolean = is_bipartite(graph1)
+# print(boolean)
 
-print(out)
-print(out2)
+perfect1 = is_perfect(graph2)
+perfect2 = is_perfect(graph1)
+
+print(perfect1)
+print(perfect2)
