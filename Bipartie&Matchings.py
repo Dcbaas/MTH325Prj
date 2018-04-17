@@ -1,3 +1,5 @@
+# Helper function that checks if a list contains a given element
+# Return: True if element is there false otherwise.
 def contains(list, element):
     if list.count(element) > 0:
         return True
@@ -8,7 +10,6 @@ def contains(list, element):
 def power(list):
     output_list = []
     pow_set_size = pow(2, len(list))
-    print("here 1")
     for i in range(0, pow_set_size):
         temp = []
         for j in range(0, len(list)):
@@ -19,7 +20,7 @@ def power(list):
     return output_list
 
 
-# This works and I don't know why????????????????!? :parrot:
+# Takes a bipartite graph and separates the vertices into sets X and Y
 def partite_sets(graph):
     partite_set__x = []
     partite_set__y = []
@@ -44,6 +45,7 @@ def partite_sets(graph):
     return output_set
 
 
+# Takes a graph as an input and checks if it is bipartite or not.
 def is_bipartite(graph):
     partite_set = partite_sets(graph)
     for key in graph:
@@ -52,21 +54,37 @@ def is_bipartite(graph):
     return True
 
 
+def greater_neighbor(partite_set, graph):
+    partite_power_set = power(partite_set)
+
+    for i in partite_power_set:
+        neighborhood = []
+        for j in i:
+            for k in graph.get(j):
+                for l in k:
+                    if not contains(neighborhood, l):
+                        neighborhood.append(k)
+        if len(neighborhood) >= len(i):
+            return True
+    return False
+
+
 def is_perfect(graph):
     partite_set = partite_sets(graph)
-    print(partite_set)
     # Do both partite sets have an equal number of vertices
-    if len(partite_set[0]) != len(partite_set[1]):
-        return False
+    if len(partite_set[0]) == len(partite_set[1]):
+        if greater_neighbor(partite_set[0], graph) and greater_neighbor(partite_set[1], graph):
+            return True
 
-    return True
+    return False
+
 
 
 graph1 = {"A": ["B", "C"], "B": ["A"], "C": ["A"]}
 graph2 = {"A": ["B", "C"], "B": ["A", "D"], "C": ["A", "D"], "D": ["B", "C"]}
 
-# boolean = is_bipartite(graph1)
-# print(boolean)
+# boolean1 = is_bipartite(graph1)
+boolean2 = is_bipartite(graph2)
 
 perfect1 = is_perfect(graph2)
 perfect2 = is_perfect(graph1)
