@@ -46,6 +46,7 @@ def partite_sets(graph):
 
 
 # Takes a graph as an input and checks if it is bipartite or not.
+# True if the graph is bipartite false otherwise.
 def is_bipartite(graph):
     partite_set = partite_sets(graph)
     for key in graph:
@@ -53,7 +54,9 @@ def is_bipartite(graph):
             return False
     return True
 
-
+# Helper method that looks at the neighbor of a partite set
+# Returns true if the neighborhood is greater than the subset of the partite set.
+# False otherwise.
 def greater_neighbor(partite_set, graph):
     partite_power_set = power(partite_set)
 
@@ -68,7 +71,8 @@ def greater_neighbor(partite_set, graph):
             return True
     return False
 
-
+# Checks if a graph has a perfect matching.
+# True if the graph has a perfect matching. False otherwise.
 def is_perfect(graph):
     partite_set = partite_sets(graph)
     # Do both partite sets have an equal number of vertices
@@ -79,15 +83,23 @@ def is_perfect(graph):
     return False
 
 
+# Examples Provided by the professor.
 
-graph1 = {"A": ["B", "C"], "B": ["A"], "C": ["A"]}
+list1 = ["A", "B"]
+list2 = ["A", "B", "C"]
+
+graph1 = {"A" : ["B", "C"], "B": ["A"], "C": ["A"]}
 graph2 = {"A": ["B", "C"], "B": ["A", "D"], "C": ["A", "D"], "D": ["B", "C"]}
+graph3 = {"A": ["B", "C"], "B": ["A", "C"], "C": ["A", "B"]}
 
-# boolean1 = is_bipartite(graph1)
-boolean2 = is_bipartite(graph2)
+print(power(list1))
+print(power(list2))
 
-perfect1 = is_perfect(graph2)
-perfect2 = is_perfect(graph1)
+print(partite_sets(graph1))
+print(partite_sets(graph2))
 
-print(perfect1)
-print(perfect2)
+print(is_bipartite(graph1))
+print(is_bipartite(graph3))
+
+print(is_perfect(graph2))
+print(is_perfect(graph1))
