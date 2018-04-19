@@ -19,7 +19,7 @@ def ternary_combinations(length):
     for i in range(0, total_elements):
         ternary_value = []
         decimal_val = i
-        for bit in range(length-1,-1,-1):
+        for bit in range(length - 1, -1, -1):
             bit_place = pow(3, bit)
             bit_val = decimal_val // bit_place;
             decimal_val -= bit_place * bit_val
@@ -27,13 +27,14 @@ def ternary_combinations(length):
         ternary_set_list.append(ternary_value)
     return ternary_set_list
 
+
 def three_color(graph):
     three_color_output = []
     vertex = list(graph.keys())
     ternary_combos = ternary_combinations(len(vertex))
     for i in ternary_combos:
-        temp_set ={}
-        for j in range(0,len(i)):
+        temp_set = {}
+        for j in range(0, len(i)):
             key_val = vertex[j]
             val = {key_val: i[j]}
             temp_set.update(val)
@@ -41,8 +42,43 @@ def three_color(graph):
     return three_color_output
 
 
+def is_three_color(graph):
+    three_color_combos = three_color(graph)
 
-    # return threeColor
+    for i in three_color_combos:
+        if is_proper(graph, i):
+            return True
+    return False
 
-color =three_color({"A":["B"], "B":["A"]})
+
+def is_proper_edge(graph):
+    for key, value in graph.items():
+        coloring = []
+        for i in value:
+            coloring.append(i[1])
+        for i in coloring:
+            if coloring.count(i) > 1:
+                return False
+    return True
+
+
+color = three_color({"A": ["B"], "B": ["A"]})
 print(color)
+
+is_color1 = is_three_color({" A ": [" B ", " C "], " B ": [" A ", " C "], " C ": [" A ", " B "]})
+is_color2 = is_three_color({" A ": [" B ", " C ", " D "], " B ": [" A ", " C ", " D "], " C ": [" A ", " B ", " D "],
+                            " D ": [" A ", " B ", " C "]})
+
+print(is_color1)
+print(is_color2)
+print("\n")
+
+proper_edge1 = is_proper_edge(
+    {" A ": [[" B ", 1], [" C ", 2]], " B ": [[" A ", 1], [" C ", 3]], " C ": [[" A ", 2], [" B ", 3]]})
+
+proper_edge2 = is_proper_edge(
+    {" A ": [[" B ", 1], [" C ", 2]], " B ": [[" A ", 1], [" C ", 2]], " C ": [[" A ", 2], [" B ", 2]]})
+
+print(proper_edge1)
+print(proper_edge2)
+print("\n")
