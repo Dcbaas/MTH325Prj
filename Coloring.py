@@ -62,6 +62,29 @@ def is_proper_edge(graph):
     return True
 
 
+def greedy(graph, ordering):
+    coloring = {}
+    for i in ordering:
+        color = 1
+        adjacent = []
+        # Get the list of adjacent colors
+        for j in graph.get(i):
+            other_color = coloring.get(j, "none")
+            if other_color == "none":
+                continue
+            else:
+                adjacent.append(other_color)
+        done = False
+        while not done:
+            if adjacent.count(color) == 0:
+                 done = True
+            else:
+                color += 1
+
+        coloring.update({i: color})
+    return coloring
+
+
 color = three_color({"A": ["B"], "B": ["A"]})
 print(color)
 
@@ -82,3 +105,9 @@ proper_edge2 = is_proper_edge(
 print(proper_edge1)
 print(proper_edge2)
 print("\n")
+
+graph1 = greedy({" A ": [" B ", " C "], " B ": [" A "], " C ": [" A "]}, [" A ", " B ", " C "])
+graph2 = greedy({" A ": [" B "], " B ": [" A ", " C "], " C ": [" B ", " D "], " D ": [" C "]},
+                [" A ", " D ", " B ", " C "])
+print(graph1)
+print(graph2)
