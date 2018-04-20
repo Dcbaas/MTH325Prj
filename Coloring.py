@@ -1,3 +1,4 @@
+# Finds if a graph with a given coloring is proper.
 def is_proper(graph, color):
     for key, value in graph.items():
         for i in value:
@@ -7,11 +8,7 @@ def is_proper(graph, color):
                 return False
     return True
 
-
-bool1 = is_proper({"A": ["B", "C"], "B": ["A", "C"], "C": ["A", "B"]}, {"A": 1, "B": 1, "C": 3})
-print(bool1)
-
-
+# Helper method generate a power set of a ternary string of length n.
 def ternary_combinations(length):
     ternary_set_list = []
     total_elements = pow(3, length)
@@ -27,7 +24,7 @@ def ternary_combinations(length):
         ternary_set_list.append(ternary_value)
     return ternary_set_list
 
-
+# Generates all the possible colorings for a graph using three colors regardless of if it is proper
 def three_color(graph):
     three_color_output = []
     vertex = list(graph.keys())
@@ -41,7 +38,7 @@ def three_color(graph):
         three_color_output.append(temp_set)
     return three_color_output
 
-
+# Checks if a graph can be colored using three colors.
 def is_three_color(graph):
     three_color_combos = three_color(graph)
 
@@ -50,7 +47,7 @@ def is_three_color(graph):
             return True
     return False
 
-
+# Checks if a graph has a proper edge coloring
 def is_proper_edge(graph):
     for key, value in graph.items():
         coloring = []
@@ -61,7 +58,7 @@ def is_proper_edge(graph):
                 return False
     return True
 
-
+# Generates a vertex coloring for a given graph using the greedy algorithm.
 def greedy(graph, ordering):
     coloring = {}
     for i in ordering:
@@ -77,13 +74,16 @@ def greedy(graph, ordering):
         done = False
         while not done:
             if adjacent.count(color) == 0:
-                 done = True
+                done = True
             else:
                 color += 1
 
         coloring.update({i: color})
     return coloring
 
+
+is_proper1 = is_proper({"A": ["B", "C"], "B": ["A", "C"], "C": ["A", "B"]}, {"A": 1, "B": 1, "C": 3})
+print(is_proper1)
 
 color = three_color({"A": ["B"], "B": ["A"]})
 print(color)
