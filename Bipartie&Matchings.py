@@ -21,6 +21,7 @@ def power(list):
 
 
 # Takes a bipartite graph and separates the vertices into sets X and Y
+# If given a graph that isn't Bipartite a value will be in both partite sets.
 def partite_sets(graph):
     partite_set__x = []
     partite_set__y = []
